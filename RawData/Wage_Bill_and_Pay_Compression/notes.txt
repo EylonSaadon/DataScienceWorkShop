@@ -1,0 +1,6 @@
+http://data.worldbank.org/data-catalog/wage-bill-pay-compression
+
+
+Wage Bill and Pay Compression provides data on public sector wage bills, pay compression, and government employment. Wage bill includes both central and general government compensation as percentages of GDP, revenues, and expenditures.
+Pay compression is defined as the ratio of highest salary to lowest salary on the central government's main salary scale. Public Sector employment includes both General Government and State Owned Enterprise's employees, but only general government employment is captured in this dataset.
+
