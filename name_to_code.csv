@@ -1,0 +1,31 @@
+,Indicator Name,Indicator Code,meaning
+4,"Adolescent fertility rate (births per 1,000 women ages 15-19)",SP.ADO.TFRT,Adolescent fertility
+7,Age dependency ratio (% of working-age population),SP.POP.DPND,Age dependency
+8,"Age population, age 0, female, interpolated",SP.POP.AG00.FE.IN,Age population0
+10,"Age population, age 01, female, interpolated",SP.POP.AG01.FE.IN,Age population1
+18,"Age population, age 05, female, interpolated",SP.POP.AG05.FE.IN,Age population5
+22,"Birth rate, crude (per 1,000 people)",SP.DYN.CBRT.IN,Birth rate
+76,"Death rate, crude (per 1,000 people)",SP.DYN.CDRT.IN,Death rate
+164,"Employment to population ratio, 15+, female (%) (national estimate)",SL.EMP.TOTL.SP.FE.NE.ZS,Employment ratio f
+166,"Employment to population ratio, 15+, male (%) (national estimate)",SL.EMP.TOTL.SP.MA.NE.ZS,Employment ratio m
+168,"Employment to population ratio, 15+, total (%) (national estimate)",SL.EMP.TOTL.SP.NE.ZS,Employment ratio
+170,"Employment to population ratio, ages 15-24, female (%) (national estimate)",SL.EMP.1524.SP.FE.NE.ZS,Employment ratio 24
+198,"Fertility rate, total (births per woman)",SP.DYN.TFRT.IN,Fertility rate
+200,GDP (current US$),NY.GDP.MKTP.CD,GDP
+201,GDP growth (annual%),NY.GDP.MKTP.KD.ZG,GDP growth
+202,GDP per capita (Current US$),NY.GDP.PCAP.CD,GDP per capita
+204,"GNI per capita, Atlas method (current US$)",NY.GNP.PCAP.CD,GNI per capita
+206,"GNI, Atlas method (current US$)",NY.GNP.ATLS.CD,"GNI, Atlas"
+220,"Immunization, measles (% of children ages 12-23 months)",SH.IMM.MEAS,"Immunization, measles"
+244,"Labor participation rate, female (% of female population ages 15+) (national estimate)",SL.TLF.CACT.FE.NE.ZS,Labor participation f
+246,"Labor participation rate, male (% of male population ges 15+) (national estimate)",SL.TLF.CACT.MA.NE.ZS,Labor participation m
+262,"Life expectancy at birth, female (years)",SP.DYN.LE00.FE.IN,Life expectancy f
+263,"Life expectancy at birth, male (years)",SP.DYN.LE00.MA.IN,Life expectancy m
+352,"Mortality rate, infant (per 1,000 live births)",SP.DYN.IMRT.IN,Mortality  infant 
+399,"Population ages 15-64, female",SP.POP.1564.FE.IN,Population 15-64 f
+405,"Population, female (% of total)",SP.POP.TOTL.FE.ZS,Population f
+475,"School enrollment, primary (gross), gender parity index (GPI)",SE.ENR.PRIM.FM.ZS,School enrollment
+477,"School enrollment, primary, female (% gross)",SE.PRM.ENRR.FE,School enrollment f
+518,"Unemployment, youth female (% of female labor force ages 15-24) (national estimate)",SL.UEM.1524.FE.NE.ZS,"Unemployment, youth female"
+522,"Unemployment, youth total (% of total labor force ages 15-24) (national estimate)",SL.UEM.1524.NE.ZS,"Unemployment, youth"
+557,"Wage and salaried workers, female (% of females employed)",SL.EMP.WORK.FE.ZS,Wage  salaried workers f
