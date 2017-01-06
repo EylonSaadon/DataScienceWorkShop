@@ -4,7 +4,6 @@
 8,"Age population, age 0, female, interpolated",SP.POP.AG00.FE.IN,Age population0
 10,"Age population, age 01, female, interpolated",SP.POP.AG01.FE.IN,Age population1
 18,"Age population, age 05, female, interpolated",SP.POP.AG05.FE.IN,Age population5
-22,"Birth rate, crude (per 1,000 people)",SP.DYN.CBRT.IN,Birth rate
 76,"Death rate, crude (per 1,000 people)",SP.DYN.CDRT.IN,Death rate
 164,"Employment to population ratio, 15+, female (%) (national estimate)",SL.EMP.TOTL.SP.FE.NE.ZS,Employment ratio f
 166,"Employment to population ratio, 15+, male (%) (national estimate)",SL.EMP.TOTL.SP.MA.NE.ZS,Employment ratio m
@@ -22,7 +21,6 @@
 262,"Life expectancy at birth, female (years)",SP.DYN.LE00.FE.IN,Life expectancy f
 263,"Life expectancy at birth, male (years)",SP.DYN.LE00.MA.IN,Life expectancy m
 352,"Mortality rate, infant (per 1,000 live births)",SP.DYN.IMRT.IN,Mortality  infant 
-399,"Population ages 15-64, female",SP.POP.1564.FE.IN,Population 15-64 f
 405,"Population, female (% of total)",SP.POP.TOTL.FE.ZS,Population f
 475,"School enrollment, primary (gross), gender parity index (GPI)",SE.ENR.PRIM.FM.ZS,School enrollment
 477,"School enrollment, primary, female (% gross)",SE.PRM.ENRR.FE,School enrollment f
