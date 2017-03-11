@@ -47,7 +47,20 @@ def create_wageGap_graph_tuple(data_no_na,countries_count,remaining_features,x):
 
     # ploting average in blue color
     plot_tuple = plot_tuple + (years, y_graphs_dict['WageGapAvg'], 'b')
-    return plot_tuple, country_colums_list,feature_countries
+
+    print ('Total Countries {0}'.format(len(country_colums_list)))
+    print ('Countries in feature list {0}'.format(len(feature_countries)))
+    plt.show()
+
+    for i in range(0, len(plot_tuple), 3):
+        plt.plot(plot_tuple[i], plot_tuple[i + 1], plot_tuple[i + 2])
+
+    plt.ylabel('Wage Gap ratio')
+    plt.xlabel('Years')
+    plt.title('Wage Gap VS Years for all countries')
+    plt.xlim(1975, 2015)
+    plt.ylim(-40, 70)
+    plt.show()
 
 def create_graph_test_prediction_vs_data(data_no_na,traintest_threshold,y_hat_test_sklearn,
                                          with_statsmodel = False,y_hat_test_stats=None):
@@ -176,7 +189,7 @@ def create_error_graph_test_pred_vs_data(data_no_na,traintest_threshold,y_hat_te
 
 def plot_average_error(data_no_na,y_hat_test_sklearn,y_hat_sklearn,with_statsmodel = False ,df_y_hat_stats=None):
 
-    df_y_hat_sklearn_only_test = pd.DataFrame(data=y_hat_test_sklearn, columns=['WageGaPPredict'],with_statsmodel = False)
+    df_y_hat_sklearn_only_test = pd.DataFrame(data=y_hat_test_sklearn, columns=['WageGaPPredict'])
     df_y_hat_sklearn = pd.DataFrame(data=y_hat_sklearn, columns=['WageGaPPredict'])
 
     df_prediction_and_data_sklearn = pd.concat([data_no_na, df_y_hat_sklearn], axis=1, join='inner')
