@@ -164,7 +164,7 @@ def create_error_graph_test_pred_vs_data(data_no_na, traintest_threshold, y_hat_
         df_prediction_and_data_stats = pd.concat([test_2, df_y_hat_stats], axis=1, join='inner')
 
         df_data_stats = df_prediction_and_data_stats[['Year', 'WageGaP']]
-        df_prediction_stats = df_prediction_stats[['Year', 'WageGaPPredict']]
+        df_prediction_stats = df_prediction_and_data_stats[['Year', 'WageGaPPredict']]
 
         df_data_stats_mean = df_data_stats.groupby('Year').mean()
         df_prediction_stats_mean = df_prediction_stats.groupby('Year').mean()
