@@ -309,13 +309,8 @@ def plot_average_error(data_no_na,y_hat_test_sklearn=None,y_hat_sklearn=None, wi
         err_mean_stats = np.mean(plot_precentageErr_stats.PrecentageErr)
         err_max_stats = np.max(plot_precentageErr_stats.PrecentageErr)
 
-
-
-    if with_statsmodel:
         print('average error using modelstats in precentage: %.2f' % err_mean_stats)
         print('max error using modelstats in precentage: %.2f' % err_max_stats)
-
-    if with_statsmodel:
         return plot_precentageErr_stats
 
 def create_correlation_matrix(data_no_na,remaining_features):
