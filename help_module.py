@@ -111,36 +111,41 @@ def create_graph_test_prediction_vs_data(data_no_na,traintest_threshold,y_hat_te
     plt.ticklabel_format(useOffset=False)
     plt.show()
 
-def create_graph_prediction_vs_data(data_no_na,y_hat_sklearn ,with_statsmodel = False, y_hat_stats=None):
+def create_graph_prediction_vs_data(data_no_na,y_hat_sklearn=None ,with_statsmodel = False, y_hat_stats=None,stats_only=False):
 
     plot_data = data_no_na[['Year', 'WageGaP']]
     plot_data = plot_data.groupby('Year').mean()
 
     plot_Prediction_stats=None
     df_y_hat_stats=None
+    plot_Prediction_sklearn=None
+
     if with_statsmodel:
         df_y_hat_stats = pd.DataFrame(data=y_hat_stats, columns=['WageGaPPredict'])
         df_prediction_stats = pd.concat([data_no_na, df_y_hat_stats], axis=1, join='inner')
         plot_Prediction_stats = df_prediction_stats[['Year', 'WageGaPPredict']]
         plot_Prediction_stats = plot_Prediction_stats.groupby('Year').mean()
 
-    df_y_hat_sklearn = pd.DataFrame(data=y_hat_sklearn, columns=['WageGaPPredict'])
+    if not stats_only:
+        df_y_hat_sklearn = pd.DataFrame(data=y_hat_sklearn, columns=['WageGaPPredict'])
 
-    df_prediction_and_data_sklearn = pd.concat([data_no_na, df_y_hat_sklearn], axis=1, join='inner')
-    plot_Prediction_sklearn = df_prediction_and_data_sklearn[['Year', 'WageGaPPredict']]
-    plot_Prediction_sklearn = plot_Prediction_sklearn.groupby('Year').mean()
+        df_prediction_and_data_sklearn = pd.concat([data_no_na, df_y_hat_sklearn], axis=1, join='inner')
+        plot_Prediction_sklearn = df_prediction_and_data_sklearn[['Year', 'WageGaPPredict']]
+        plot_Prediction_sklearn = plot_Prediction_sklearn.groupby('Year').mean()
 
     lines = plt.plot(plot_data.index, plot_data.WageGaP, color='r')
     if with_statsmodel:
-
         lines = plt.plot(plot_Prediction_stats.index, plot_Prediction_stats.WageGaPPredict, color='b')
-        lines = plt.plot(plot_Prediction_sklearn.index, plot_Prediction_sklearn.WageGaPPredict, color='g')
+        if not stats_only:
+            lines = plt.plot(plot_Prediction_sklearn.index, plot_Prediction_sklearn.WageGaPPredict, color='g')
     else:
         lines = plt.plot(plot_Prediction_sklearn.index, plot_Prediction_sklearn.WageGaPPredict, color='b')
 
     plt.ylabel('Average Wage Gap ratio')
     plt.xlabel('Years')
-    if with_statsmodel:
+    if stats_only:
+        plt.title('Average Wage Gap prediction (blue - modelStats) vs data(red)')
+    elif with_statsmodel:
         plt.title('Average Wage Gap prediction (green-sklearn; blue-modelstats) vs data(red)')
     else:
         plt.title('Average Wage Gap prediction(blue) vs data(red)')
@@ -228,33 +233,35 @@ def create_error_graph_test_pred_vs_data(data_no_na, traintest_threshold, y_hat_
             print('max error in precentage: %.2f' % max_err)
 
 
-def plot_average_error(data_no_na,y_hat_test_sklearn,y_hat_sklearn,with_statsmodel = False ,df_y_hat_stats=None):
+def plot_average_error(data_no_na,y_hat_test_sklearn=None,y_hat_sklearn=None, with_statsmodel = False ,
+                       y_hat_stats=None,stats_only=False):
 
-    df_y_hat_sklearn_only_test = pd.DataFrame(data=y_hat_test_sklearn, columns=['WageGaPPredict'])
-    df_y_hat_sklearn = pd.DataFrame(data=y_hat_sklearn, columns=['WageGaPPredict'])
+    if not stats_only:
+        df_y_hat_sklearn_only_test = pd.DataFrame(data=y_hat_test_sklearn, columns=['WageGaPPredict'])
+        df_y_hat_sklearn = pd.DataFrame(data=y_hat_sklearn, columns=['WageGaPPredict'])
 
-    df_prediction_and_data_sklearn = pd.concat([data_no_na, df_y_hat_sklearn], axis=1, join='inner')
+        df_prediction_and_data_sklearn = pd.concat([data_no_na, df_y_hat_sklearn], axis=1, join='inner')
 
-    df_data_sklearn = df_prediction_and_data_sklearn[['Year', 'WageGaPPredict']]
-    df_prediction_sklearn = df_prediction_and_data_sklearn[['Year', 'WageGaP']]
+        df_data_sklearn = df_prediction_and_data_sklearn[['Year', 'WageGaPPredict']]
+        df_prediction_sklearn = df_prediction_and_data_sklearn[['Year', 'WageGaP']]
 
-    df_data_sklearn_mean = df_data_sklearn.groupby('Year').mean()
-    df_prediction_sklearn_mean = df_prediction_sklearn.groupby('Year').mean()
+        df_data_sklearn_mean = df_data_sklearn.groupby('Year').mean()
+        df_prediction_sklearn_mean = df_prediction_sklearn.groupby('Year').mean()
 
-    df_prediction_and_data_sklearn_mean = pd.concat([df_data_sklearn_mean, df_prediction_sklearn_mean], axis=1,
-                                                    join='inner')
+        df_prediction_and_data_sklearn_mean = pd.concat([df_data_sklearn_mean, df_prediction_sklearn_mean], axis=1,
+                                                        join='inner')
 
-    precentage_error_sklearn = ((abs(
-        df_prediction_and_data_sklearn_mean['WageGaPPredict'] - df_prediction_and_data_sklearn_mean['WageGaP']) /
-                                 df_prediction_and_data_sklearn_mean['WageGaP']) * 100)
-    df_precentage_error_sklearn = pd.DataFrame(data=precentage_error_sklearn, columns=['PrecentageErr'])
+        precentage_error_sklearn = ((abs(
+            df_prediction_and_data_sklearn_mean['WageGaPPredict'] - df_prediction_and_data_sklearn_mean['WageGaP']) /
+                                     df_prediction_and_data_sklearn_mean['WageGaP']) * 100)
+        df_precentage_error_sklearn = pd.DataFrame(data=precentage_error_sklearn, columns=['PrecentageErr'])
 
-    plot_precentageErr_sklearn = pd.concat([df_prediction_and_data_sklearn_mean, df_precentage_error_sklearn], axis=1,
-                                           join='inner')
+        plot_precentageErr_sklearn = pd.concat([df_prediction_and_data_sklearn_mean, df_precentage_error_sklearn], axis=1,
+                                               join='inner')
 
     if with_statsmodel:
         # preparing data for stats
-        df_y_hat_stats = pd.DataFrame(data=df_y_hat_stats, columns=['WageGaPPredict'])
+        df_y_hat_stats = pd.DataFrame(data=y_hat_stats, columns=['WageGaPPredict'])
 
         df_prediction_and_data_stats = pd.concat([data_no_na, df_y_hat_stats], axis=1, join='inner')
 
@@ -305,6 +312,9 @@ def plot_average_error(data_no_na,y_hat_test_sklearn,y_hat_sklearn,with_statsmod
     if with_statsmodel:
         print('average error using modelstats in precentage: %.2f' % err_mean_stats)
         print('max error using modelstats in precentage: %.2f' % err_max_stats)
+
+    if with_statsmodel:
+        return plot_precentageErr_stats
 
 def create_correlation_matrix(data_no_na,remaining_features):
     from pandas.tools.plotting import scatter_matrix
