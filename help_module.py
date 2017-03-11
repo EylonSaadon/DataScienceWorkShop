@@ -62,8 +62,8 @@ def create_wageGap_graph_tuple(data_no_na,countries_count,remaining_features,x):
     plt.ylim(-40, 70)
     plt.show()
 
-def create_graph_test_prediction_vs_data(data_no_na,traintest_threshold,y_hat_test_sklearn,
-                                         with_statsmodel = False,y_hat_test_stats=None):
+def create_graph_test_prediction_vs_data(data_no_na,traintest_threshold,y_hat_test_sklearn=None,
+                                         with_statsmodel = False,y_hat_test_stats=None, stats_only=False):
 
     test = data_no_na[data_no_na['Year'] >= traintest_threshold]
 
@@ -74,11 +74,12 @@ def create_graph_test_prediction_vs_data(data_no_na,traintest_threshold,y_hat_te
     test_2 = test.reset_index(drop=True)
     test_2.columns = cols
 
-    df_y_hat_sklearn = pd.DataFrame(data=y_hat_test_sklearn, columns=['WageGaPPredict'])
+    if not stats_only:
+        df_y_hat_sklearn = pd.DataFrame(data=y_hat_test_sklearn, columns=['WageGaPPredict'])
 
-    df_prediction_sklearn_only_test = pd.concat([test_2, df_y_hat_sklearn], axis=1, join='inner')
-    plot_Prediction_sklearn_only_test = df_prediction_sklearn_only_test[['Year', 'WageGaPPredict']]
-    plot_Prediction_sklearn_only_test = plot_Prediction_sklearn_only_test.groupby('Year').mean()
+        df_prediction_sklearn_only_test = pd.concat([test_2, df_y_hat_sklearn], axis=1, join='inner')
+        plot_Prediction_sklearn_only_test = df_prediction_sklearn_only_test[['Year', 'WageGaPPredict']]
+        plot_Prediction_sklearn_only_test = plot_Prediction_sklearn_only_test.groupby('Year').mean()
 
     plot_Prediction_stats_only_test= None
     if with_statsmodel:
@@ -91,14 +92,17 @@ def create_graph_test_prediction_vs_data(data_no_na,traintest_threshold,y_hat_te
     lines = plt.plot(plot_data.index, plot_data.WageGaP, color='r')
     if with_statsmodel:
         lines = plt.plot(plot_Prediction_stats_only_test.index,plot_Prediction_stats_only_test.WageGaPPredict,color='b')
-        lines = plt.plot(plot_Prediction_sklearn_only_test.index,plot_Prediction_sklearn_only_test.WageGaPPredict,color='g')
+        if not stats_only:
+            lines = plt.plot(plot_Prediction_sklearn_only_test.index,plot_Prediction_sklearn_only_test.WageGaPPredict,color='g')
     else:
         lines = plt.plot(plot_Prediction_sklearn_only_test.index, plot_Prediction_sklearn_only_test.WageGaPPredict,
                      color='b')
 
     plt.ylabel('Average Wage Gap ratio')
     plt.xlabel('Years')
-    if with_statsmodel:
+    if stats_only:
+        plt.title('Average Wage Gap prediction (green - modelStats) vs data(red)')
+    elif  with_statsmodel:
         plt.title('Average Wage Gap prediction (green-sklearn; blue-modelstats) vs data(red)-only test')
     else:
         plt.title('Average Wage Gap prediction (blue-sklearn) vs data(red)-only test')
