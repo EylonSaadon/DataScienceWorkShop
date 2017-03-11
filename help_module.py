@@ -316,3 +316,4 @@ def create_correlation_matrix(data_no_na,remaining_features):
 
     corr_df6 = features_df[group6]
     scatter_matrix(corr_df6, alpha=0.6, figsize=(12, 12), diagonal='kde')
+    return features_df
