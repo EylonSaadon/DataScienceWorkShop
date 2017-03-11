@@ -285,7 +285,8 @@ def plot_average_error(data_no_na,y_hat_test_sklearn=None,y_hat_sklearn=None, wi
     if with_statsmodel:
         lines = plt.plot(plot_precentageErr_stats.index, plot_precentageErr_stats.PrecentageErr, color='b')
 
-    lines = plt.plot(plot_precentageErr_sklearn.index, plot_precentageErr_sklearn.PrecentageErr, color='g')
+    if not stats_only:
+        lines = plt.plot(plot_precentageErr_sklearn.index, plot_precentageErr_sklearn.PrecentageErr, color='g')
 
     if with_statsmodel:
         plt.ylabel('Error in Precentage over the years (green-sklearn; blue-modelstats)')
