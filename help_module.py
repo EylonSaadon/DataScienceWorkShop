@@ -113,6 +113,7 @@ def create_graph_prediction_vs_data(data_no_na,y_hat_sklearn ,with_statsmodel = 
     plot_data = plot_data.groupby('Year').mean()
 
     plot_Prediction_stats=None
+    df_y_hat_stats=None
     if with_statsmodel:
         df_y_hat_stats = pd.DataFrame(data=y_hat_stats, columns=['WageGaPPredict'])
         df_prediction_stats = pd.concat([data_no_na, df_y_hat_stats], axis=1, join='inner')
@@ -141,6 +142,8 @@ def create_graph_prediction_vs_data(data_no_na,y_hat_sklearn ,with_statsmodel = 
         plt.title('Average Wage Gap prediction(blue) vs data(red)')
     plt.ylim(0, 100)
     plt.show()
+    return df_y_hat_stats
+
 
 def create_error_graph_test_pred_vs_data(data_no_na,traintest_threshold,y_hat_test_sklearn):
 
@@ -264,3 +267,48 @@ def plot_average_error(data_no_na,y_hat_test_sklearn,y_hat_sklearn,with_statsmod
     if with_statsmodel:
         print('average error using modelstats in precentage: %.2f' % err_mean_stats)
         print('max error using modelstats in precentage: %.2f' % err_max_stats)
+
+def create_correlation_matrix(data_no_na,remaining_features):
+    from pandas.tools.plotting import scatter_matrix
+    # help df for renaming the indicator code with meaningfull names
+    temp_data_row = pd.read_csv('name_to_code.csv', header=None, skiprows=1)
+    temp_data_row.columns = ['index', 'Indicator Name', 'Indicator Code', 'meaning']
+
+    correlation_cols = [x for x in remaining_features if 'country' not in x] + ['Year'] + ['WageGaP']
+    features_df = data_no_na[correlation_cols]
+    # replace the columns names with codes
+    # create dict old-new
+    names_dict = {}
+    for index, row in temp_data_row.iterrows():
+        names_dict[row['Indicator Name']] = row['meaning']
+
+    features_df = features_df.rename(columns=names_dict)
+    # output correlations per groups
+    print ('Selecting correlation groups manually')
+    group1 = ['Age dependency', 'Age population0', 'Age population1', 'Age population5', 'WageGaP']
+
+    group2 = ['Adolescent fertility', 'Fertility rate', 'Death rate', 'WageGaP']
+    group3 = ['Employment ratio f', 'Employment ratio m', 'Employment ratio', 'Employment ratio 24', 'WageGaP']
+    group4 = ['GDP', 'GDP growth', 'GDP per capita', 'GNI per capita', 'GNI, Atlas', 'WageGaP']
+    group5 = ['Immunization, measles', 'Life expectancy f', 'Life expectancy m', 'Mortality  infant ', 'WageGaP']
+    group6 = ['Labor participation f', 'Labor participation m', 'Unemployment, youth female', 'Unemployment, youth',
+              'WageGaP']
+
+    # print scatter matrix
+    corr_df1 = features_df[group1]
+    scatter_matrix(corr_df1, alpha=0.7, figsize=(11, 11), diagonal='kde')
+
+    corr_df2 = features_df[group2]
+    scatter_matrix(corr_df2, alpha=0.6, figsize=(12, 12), diagonal='kde')
+
+    corr_df3 = features_df[group3]
+    scatter_matrix(corr_df3, alpha=0.6, figsize=(12, 12), diagonal='kde')
+
+    corr_df4 = features_df[group4]
+    scatter_matrix(corr_df4, alpha=0.6, figsize=(12, 12), diagonal='kde')
+
+    corr_df5 = features_df[group5]
+    scatter_matrix(corr_df5, alpha=0.6, figsize=(12, 12), diagonal='kde')
+
+    corr_df6 = features_df[group6]
+    scatter_matrix(corr_df6, alpha=0.6, figsize=(12, 12), diagonal='kde')
