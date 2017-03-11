@@ -302,13 +302,14 @@ def plot_average_error(data_no_na,y_hat_test_sklearn=None,y_hat_sklearn=None, wi
     if not stats_only:
         err_mean_sklearn = np.mean(plot_precentageErr_sklearn.PrecentageErr)
         err_max_sklearn = np.max(plot_precentageErr_sklearn.PrecentageErr)
+        print('average error in precentage: %.2f' % err_mean_sklearn)
+        print('max error in precentage: %.2f' % err_max_sklearn)
 
     if with_statsmodel:
         err_mean_stats = np.mean(plot_precentageErr_stats.PrecentageErr)
         err_max_stats = np.max(plot_precentageErr_stats.PrecentageErr)
 
-    print('average error in precentage: %.2f' % err_mean_sklearn)
-    print('max error in precentage: %.2f' % err_max_sklearn)
+
 
     if with_statsmodel:
         print('average error using modelstats in precentage: %.2f' % err_mean_stats)
