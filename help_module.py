@@ -311,6 +311,7 @@ def plot_average_error(data_no_na,y_hat_test_sklearn=None,y_hat_sklearn=None, wi
 
         print('average error using modelstats in precentage: %.2f' % err_mean_stats)
         print('max error using modelstats in precentage: %.2f' % err_max_stats)
+    if stats_only:
         return plot_precentageErr_stats
 
 def create_correlation_matrix(data_no_na,remaining_features):
