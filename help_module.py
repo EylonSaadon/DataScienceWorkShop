@@ -299,9 +299,9 @@ def plot_average_error(data_no_na,y_hat_test_sklearn=None,y_hat_sklearn=None, wi
     plt.ticklabel_format(useOffset=False)
     plt.show()
 
-
-    err_mean_sklearn = np.mean(plot_precentageErr_sklearn.PrecentageErr)
-    err_max_sklearn = np.max(plot_precentageErr_sklearn.PrecentageErr)
+    if not stats_only:
+        err_mean_sklearn = np.mean(plot_precentageErr_sklearn.PrecentageErr)
+        err_max_sklearn = np.max(plot_precentageErr_sklearn.PrecentageErr)
 
     if with_statsmodel:
         err_mean_stats = np.mean(plot_precentageErr_stats.PrecentageErr)
