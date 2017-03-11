@@ -47,4 +47,4 @@ def create_wageGap_graph_tuple(data_no_na,countries_count,remaining_features,x):
 
     # ploting average in blue color
     plot_tuple = plot_tuple + (years, y_graphs_dict['WageGapAvg'], 'b')
-    return plot_tuple
+    return plot_tuple, country_colums_list,feature_countries
